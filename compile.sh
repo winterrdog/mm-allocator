@@ -1,0 +1,1 @@
+gcc -o mm.so -Ofast -nostdlib -fPIC -shared src/mem-alloc.c

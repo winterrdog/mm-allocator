@@ -21,6 +21,7 @@ void_ptr_t realloc(void *block, size_t size);
 void free(void_ptr_t block);
 void_ptr_t mm_mem_set(void_ptr_t src, int c, size_t n);
 void_ptr_t mm_mem_copy(void_ptr_t s1, void_ptr_t s2, size_t n);
+void print_mem_list();
 
 void_ptr_t mm_mem_set(void_ptr_t src, int c, size_t n)
 {
@@ -28,7 +29,6 @@ void_ptr_t mm_mem_set(void_ptr_t src, int c, size_t n)
 
 	int i;
 	for (i = 0; i != n; tmp_src[i++] = c) ;
-
 	return src;
 }
 
