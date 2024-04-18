@@ -1,5 +1,6 @@
 #include <pthread.h>		// pthread_mutex_unlock,pthread_mutex_lock,pthread_mutex_t
 #include <stddef.h>		// size_t
+#include <stdio.h>
 #include <unistd.h>		// sbrk
 
 typedef void *void_ptr_t;
@@ -34,19 +35,26 @@ void_ptr_t mm_mem_set(void_ptr_t src, int c, size_t n)
 
 void_ptr_t mm_mem_copy(void_ptr_t s1, void_ptr_t s2, size_t n)
 {
-	byte_t *c_dest = NULL, *c_src = NULL;
 	uint_t *l_dest = (uint_t *) s1, *l_src = (uint_t *) s2;
+	byte_t *c_dest = NULL, *c_src = NULL;
+	while (1) {
+		// first copy over data of 4-byte chunks
+		if (n >= sizeof(uint_t)) {
+			*l_dest++ = *l_src++;
+			n -= sizeof(uint_t);
+			continue;
+		}
 
-	// first copy over data of 4-byte chunks
-	for (; n >= sizeof(uint_t); n -= sizeof(uint_t)) {
-		*l_dest++ = *l_src++;
+		if (n) {
+			// copy over the remainder data, 1-byte at a time
+			c_dest = (byte_t *) l_dest, c_src = (byte_t *) l_src;
+			while (n) {
+				*c_dest++ = *c_src++, n--;
+				printf("ldest: %c\t lsrc: %c\n", *c_dest - 1,
+				       *c_src - 1);
+			}
+		}
+
+		return s1;
 	}
-
-	// copy over the remainder data, 1-byte at a time
-	c_dest = (byte_t *) l_dest, c_src = (byte_t *) l_src;
-	while (n) {
-		*c_dest++ = *c_src, n--;
-	}
-
-	return s1;
 }
