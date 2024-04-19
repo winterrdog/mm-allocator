@@ -1,5 +1,4 @@
 #include "./utils.h"
-#include <pthread.h>
 
 // NOTE:
 // this program is built with x86-64 in mind. for x86, it might not b as
