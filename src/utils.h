@@ -37,12 +37,12 @@ void_ptr_t mm_mem_copy(void_ptr_t s1, void_ptr_t s2, size_t n)
 {
 	uint_t *l_dest = (uint_t *) s1, *l_src = (uint_t *) s2;
 	byte_t *c_dest = NULL, *c_src = NULL;
-	while (1) {
+LOOP:
 		// first copy over data of 4-byte chunks
 		if (n >= sizeof(uint_t)) {
 			*l_dest++ = *l_src++;
 			n -= sizeof(uint_t);
-			continue;
+			goto LOOP;
 		}
 
 		if (n) {
@@ -56,5 +56,4 @@ void_ptr_t mm_mem_copy(void_ptr_t s1, void_ptr_t s2, size_t n)
 		}
 
 		return s1;
-	}
 }
