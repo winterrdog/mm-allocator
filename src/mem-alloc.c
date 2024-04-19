@@ -134,18 +134,3 @@ header_info_t *get_free_block(size_t size)
 	}
 	return NULL;
 }
-
-// void print_mem_list()
-// {
-//      header_info_t *curr = sl_head;
-//      printf("head = %p, tail = %p \n", (void *)sl_head, (void *)sl_tail);
-//      if (!curr)
-//              return;
-
-//      while (curr) {
-//              printf("addr = %p, size = %zu, is_free=%u, next=%p\n",
-//                     (void *)curr, curr->size, curr->is_free,
-//                     (void *)curr->next);
-//              curr = curr->next;
-//      }
-// }
