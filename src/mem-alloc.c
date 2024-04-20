@@ -120,9 +120,8 @@ void free(void *block)
 	// if the block is "not" the last one in the heap
 	header->is_free = 1;	// mark 'free'
 
- clean_up:
-	pthread_mutex_unlock(&global_malloc_lock);
-	return;
+    block = NULL; // mark free block as NULL
+    pthread_mutex_unlock(&global_malloc_lock);
 }
 
 header_info_t *get_free_block(size_t size)
