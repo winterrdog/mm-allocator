@@ -52,3 +52,4 @@ Mkfile.old
 dkms.conf
 guide
 .gdb_history
+*.cast
